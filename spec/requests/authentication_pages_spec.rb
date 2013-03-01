@@ -40,7 +40,13 @@ describe "Authentication" do
           before { click_link "Sign out" }
           it { should have_link('Sign in') }
         end
+
+        describe "prevent new user creation" do
+          before { visit signup_path }
+          it { should_not have_selector('title', text: full_title('Sign up')) }
+        end
       end
+
 
       describe "for non-signed-in users" do
         let(:user) { FactoryGirl.create(:user) }
